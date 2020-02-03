@@ -21,7 +21,12 @@ void draw() {
   stroke(255,255,255);
   food.show();
   cr.move(food.food_location_x(),food.food_location_y());
-  food=cr.eat_ifinrange(food.food_location_x(),food.food_location_y(),food);
+ 
+  if (cr.eat_ifinrange(food.food_location_x(),food.food_location_y())==true)
+  {
+  	food=new Food();
+  }
+
   
  // delay(500);
   

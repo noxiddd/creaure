@@ -77,17 +77,15 @@ class Creature {
 
   }
 
-  Food eat_ifinrange(int f_x,int f_y, Food f1)  
+  Boolean eat_ifinrange(int f_x,int f_y)  
   {//locaiton of food f_x, f_y//pass current location of food to this functions to determine if creature can eat
 
     if(abs(f_x-current_location_x)<2 && abs(f_y-current_location_y)<2)
     {
-        f1=null;
-        f1=new Food();
-        return f1;
+        return true;
     }
      
-     return f1;
+     return false;
 
   }
 }
