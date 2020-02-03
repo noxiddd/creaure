@@ -21,7 +21,7 @@ void draw() {
   stroke(255,255,255);
   food.show();
   cr.move(food.food_location_x(),food.food_location_y());
-
+  food=cr.eat_ifinrange(food.food_location_x(),food.food_location_y(),food);
   
  // delay(500);
   
