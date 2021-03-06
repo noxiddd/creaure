@@ -13,6 +13,7 @@ Food food;
 Poison poison;
 DataTables dataTables;
 
+int foodnum=6; //intial number of food
 
 
 void setup() {
@@ -25,7 +26,8 @@ void setup() {
   //let Datatablse class handle creation of new objects to track
 //  dataTables.updateCreatureTable(intial_creature_x ,intial_creature_y);  
   cr=dataTables.spawnCreature();
-  food=dataTables.spawnFood();
+  spawnNumFood(foodnum);
+  //food=dataTables.spawnFood();
   poison=dataTables.spawnPoison();
  // food=new Food();
 //  poison=new Poison();
@@ -35,8 +37,8 @@ void setup() {
 void draw() {
   background(0,0,0);
   stroke(255,255,255);
-  food.show();
-  poison.show();
+  showFood();
+ // poison.show();
   dataTables.move_creature(cr);//replace with update fution from datatables
 
 
@@ -61,4 +63,27 @@ void draw() {
   //point(300,300);
  
   
+}
+
+
+void spawnNumFood(int fnum)
+{
+  for(int i=0;i<=fnum-1;i++)
+  {
+    dataTables.spawnFood();
+  }
+
+}
+
+void showFood()
+{ Food f;
+  // println("foodobjects length",dataTables.food.length);
+   for(int i=0;i<=dataTables.foodCount-1;i++)
+   {
+
+      f=dataTables.getFoodObject(i);
+      println("FoodID:",f.get_food_id());
+      circle(f.food1_x,f.food1_y,10);
+   }
+
 }
