@@ -27,10 +27,7 @@ void setup() {
 //  dataTables.updateCreatureTable(intial_creature_x ,intial_creature_y);  
   cr=dataTables.spawnCreature();
   spawnNumFood(foodnum);
-  //food=dataTables.spawnFood();
-  poison=dataTables.spawnPoison();
- // food=new Food();
-//  poison=new Poison();
+  spawnNumPoison(foodnum-3);
 
 }
 
@@ -38,30 +35,11 @@ void draw() {
   background(0,0,0);
   stroke(255,255,255);
   showFood();
+  showPoison();
  // poison.show();
   dataTables.move_creature(cr);//replace with update fution from datatables
 
 
- /*s
-  if(cr.eat_ifinrange(poison.poison_location_x(),poison.poison_location_y())==true)
-  {
-    poison=new Poison();
-    cr=new Creature(intial_creature_x,intial_creature_y);//creatture dies and is reborn
-    //cr.evolve(); change creature randomly
-
-
-  }*/
-/*
-  if (cr.eat_ifinrange(food.food_location_x(),food.food_location_y())==true)
-  {
-  	food=new Food();
-  }
-*/
-  
- // delay(500);
-  
-  //point(300,300);
- 
   
 }
 
@@ -75,6 +53,15 @@ void spawnNumFood(int fnum)
 
 }
 
+void spawnNumPoison(int pnum)
+{
+  for(int i=0;i<=pnum-1;i++)
+  {
+    dataTables.spawnPoison();
+  }
+
+}
+
 void showFood()
 { Food f;
   // println("foodobjects length",dataTables.food.length);
@@ -82,8 +69,22 @@ void showFood()
    {
 
       f=dataTables.getFoodObject(i);
-      println("FoodID:",f.get_food_id());
+      //println("FoodID:",f.get_food_id());
       circle(f.food1_x,f.food1_y,10);
    }
+
+}
+
+
+void showPoison()
+{
+  Poison p;
+  for(int i=0;i<=dataTables.poisonCount-1;i++)
+   {
+
+      p=dataTables.getPoisonObject(i);
+      //println("FoodID:",f.get_food_id());
+      square(p.poison1_x,p.poison1_y,10);
+   }  
 
 }

@@ -33,9 +33,8 @@ class Creature {
     current_location_x=x_move+current_location_x+movement_bias_x;//add random motion
 
     println("movement_bias_x: "+movement_bias_x+"  "+"movement_bias_y: "+movement_bias_y);
-    //println(" "+movement_bias_y);
 
-    confinement_to_screen(current_location_x,current_location_y);
+    confinement_to_screen(current_location_x,current_location_y);//keepc creature on screen
 
     triangle(current_location_x,current_location_y,current_location_x-10,current_location_y-15,current_location_x+10,current_location_y-15);
   }

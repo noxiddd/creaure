@@ -36,28 +36,23 @@ class DataTables//record of where everything is
   {
     foodCount++;
     Food foo=new Food();   
-    
-    
-    //println("foodcount: ", foodCount);
     food_position_table[foodCount-1][0]=foo.food_location_x();
     food_position_table[foodCount-1][1]=foo.food_location_y();
     foo.set_food_id(foodCount-1);
-    println("foodCount spawn: "+foodCount);
-
-   // append(food,foo);
     food[foodCount-1]=foo;
+
     return foo;
 
   }
 
   Poison spawnPoison()
   {
-    Poison poi=new Poison();
     poisonCount++;
-    poison[poisonCount-1]=poi;
+    Poison poi=new Poison();     
     poison_position_table[poisonCount-1][0]=poi.poison_location_x();
     poison_position_table[poisonCount-1][1]=poi.poison_location_y();
-    poi.set_poison_id(poisonCount-1);
+    poi.set_poison_id(poisonCount-1);    
+    poison[poisonCount-1]=poi;
 
     return poi;
   }
@@ -96,20 +91,18 @@ class DataTables//record of where everything is
 
      return tempArray;
    }
-/*
-    int[] queryFoodTable (int foodID)
-   {
-     
-     tempArray[0]=food_position_table[foodID][0];
-     tempArray[1]=food_position_table[foodID][1];
 
-     return tempArray;
-   }
-   */
    Food getFoodObject(int foodid)
    {
 
      return food[foodid];
+   }
+
+
+   Poison getPoisonObject(int poisonid)
+   {
+
+    return  poison[poisonid];
    }
 
 
@@ -125,14 +118,9 @@ class DataTables//record of where everything is
 
    void move_creature(Creature cr)
    {
-      float[] closest_food_location;
-    
+      float[] closest_food_location;    
       closest_food_location=find_closest_food_and_poison(cr.get_creature_id());
-
-    //  println("food location x:",food[0].food_location_x());
-
       println("food location y:",food[0].food_location_x());
-
       cr.move(food[(int)closest_food_location[0]].food_location_x(),food[(int)closest_food_location[0]].food_location_y());//closest_food_location[0][0] is the x positions and 1 is the y position, 2 is poison x position and 3 is poison y position
 
    }
@@ -141,8 +129,6 @@ class DataTables//record of where everything is
    float[] find_closest_food_and_poison(int creature_id)
    {
 
-     // float distance_to_foodpoison_temp_array[20][2];//store the distances to food from creature//position 0 is distance to food, and 1 is poison i.e distnace_foodpoison_temp_array[4][0] is the distance of food with id 4 from creature with id creature id  
-      //float distance_to_poisons_temp_array[20][2];
       float[] distance_to_foodpoison_temp_array=new float[4];//food id and distance [0]/[1] and poison id and distnace [2]/[3]
 
       float[] food_distances_temp_array=new float[20];
@@ -159,20 +145,17 @@ class DataTables//record of where everything is
 
       for(int i =0; i<=foodCount-1;i++)
       {
-          //distance_to_foodpoison_temp_array[i][0]=sqrt(sq(food_position_table[i][0]-creature_position_table[creatureID][0])+sq(food_position_table[i][1]-creature_position_table[creature_id][1]));
+         
           temp=sqrt(sq(food_position_table[i][0]-creature_position_table[creature_id][0])+sq(food_position_table[i][1]-creature_position_table[creature_id][1]));
-        // println("Temp dist: ", temp );
+
           if(temp<min_food_distance[1])
           {
             min_food_distance[0]=i;
             min_food_distance[1]=temp;
-           // println("min_food_distance: ", min_food_distance[0]," numm ", min_food_distance[1]);
-
-            //println("Reach 1");  
           }
 
       }
-     // println("final min_food_distance[1]: ",min_food_distance[1]);
+
       for(int i =0; i<=poisonCount-1;i++)
       {
           temp=sqrt(sq(poison_position_table[i][0]-creature_position_table[creature_id][0])+sq(poison_position_table[i][1]-creature_position_table[creature_id][1]));
@@ -187,23 +170,8 @@ class DataTables//record of where everything is
        distance_to_foodpoison_temp_array[1]=min_food_distance[1];//cloest food distance
        distance_to_foodpoison_temp_array[2]=min_poison_distance[0];//closest poison id
        distance_to_foodpoison_temp_array[3]=min_poison_distance[1];//closest poison distance
-
-       //food_distances_temp_array=sort(food_distances_temp_array);
-       //poison_distances_temp_array=sort(poison_distances_temp_array);
-/*
-       for(int y=0;y<=food.length-1;y++)
-       {
-
-          distance_to_foodpoison_temp_array[y][0]=food_distances_temp_array[y];
-    
-         distance_to_foodpoison_temp_array[y][1]=poison_distances_temp_array[y];
-       }*/
-     //   distance_to_foodpoison_temp_array=sort(distance_to_foodpoison_temp_array[]);
-
-       println("closest+food_distance",distance_to_foodpoison_temp_array[0], distance_to_foodpoison_temp_array[1]);
-       println("closest+poison_distance",distance_to_foodpoison_temp_array[2], distance_to_foodpoison_temp_array[3]);
-           
-      return distance_to_foodpoison_temp_array;//distance_to_foodpoison_temp_array
+       
+       return distance_to_foodpoison_temp_array;//distance_to_foodpoison_temp_array
 
    }
 
