@@ -12,8 +12,13 @@ Creature cr;
 Food food;
 Poison poison;
 DataTables dataTables;
+int start_time=0;
+int reset_interval_time=0;
+int current_time=0;
 
 int foodnum=6; //intial number of food
+
+int creature_starve_interval=15000;//time in miliseconds, interval over which creature get progressively smaller
 
 
 void setup() {
@@ -27,18 +32,32 @@ void setup() {
 //  dataTables.updateCreatureTable(intial_creature_x ,intial_creature_y);  
   cr=dataTables.spawnCreature();
   spawnNumFood(foodnum);
-  spawnNumPoison(foodnum-3);
+  spawnNumPoison(foodnum-2);  
+  start_time=millis();
+  reset_interval_time=millis();
 
 }
 
 void draw() {
   background(0,0,0);
-  stroke(255,255,255);
+
+  
   showFood();
   showPoison();
  // poison.show();
-  dataTables.move_creature(cr);//replace with update fution from datatables
-
+  fill(255,20,0);//colour of creature 
+  //replace with update fution from datatables
+  if((millis()-reset_interval_time)<creature_starve_interval)//if its 
+  {
+      dataTables.move_creature(cr,false);//true or false reduce creatures size after a certain amount of time
+  }
+  else 
+  {
+      dataTables.move_creature(cr,true);
+      reset_interval_time=millis();
+  }
+   
+   println("reset_interval_time:",reset_interval_time);
 
   
 }
@@ -70,6 +89,7 @@ void showFood()
 
       f=dataTables.getFoodObject(i);
       //println("FoodID:",f.get_food_id());
+      fill(0,255,0);
       circle(f.food1_x,f.food1_y,10);
    }
 
@@ -84,6 +104,7 @@ void showPoison()
 
       p=dataTables.getPoisonObject(i);
       //println("FoodID:",f.get_food_id());
+      fill(128,0,128);
       square(p.poison1_x,p.poison1_y,10);
    }  
 

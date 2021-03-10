@@ -116,12 +116,26 @@ class DataTables//record of where everything is
    }
 
 
-   void move_creature(Creature cr)
+   void move_creature(Creature cr,boolean b)//creature size reduced after certain amount of time
    {
+
       float[] closest_food_location;    
       closest_food_location=find_closest_food_and_poison(cr.get_creature_id());
-      println("food location y:",food[0].food_location_x());
+      //println("food location y:",food[0].food_location_x());
+      if(b)
+      { 
+        //if(cr.crea)//f
+        cr.creature_size=cr.creature_size-2;
+        /*if(cr.creature_size<1)
+        {
+          cr=null;
+        }*/
+      }
+   
       cr.move(food[(int)closest_food_location[0]].food_location_x(),food[(int)closest_food_location[0]].food_location_y());//closest_food_location[0][0] is the x positions and 1 is the y position, 2 is poison x position and 3 is poison y position
+      
+      
+      
 
    }
 
