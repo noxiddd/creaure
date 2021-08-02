@@ -24,10 +24,14 @@ class DataTables//record of where everything is
 
   Creature spawnCreature()
   {
-    Creature cr=new Creature();
     creatureCount++;
-    creature[creatureCount-1]=cr;
+    Creature cr=new Creature();
+    creature_position_table[creatureCount-1][0]=cr.get_current_location_x();
+    creature_position_table[creatureCount-1][1]=cr.get_current_location_y();
     cr.set_creature_id(creatureCount-1);
+    creature[creatureCount-1]=cr;
+    
+    //cr.set_creature_id(creatureCount-1);
 
     return cr;
   }
@@ -126,7 +130,7 @@ class DataTables//record of where everything is
       { 
         //if(cr.crea)//f
         cr.creature_size=cr.creature_size-2;
-        /*if(cr.creature_size<1)
+        /*if(cr.creature_size<2)
         {
           cr=null;
         }*/

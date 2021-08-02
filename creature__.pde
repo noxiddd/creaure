@@ -17,8 +17,9 @@ int reset_interval_time=0;
 int current_time=0;
 
 int foodnum=6; //intial number of food
+int creaturenum=3;//intial number of creatures to start out with
 
-int creature_starve_interval=15000;//time in miliseconds, interval over which creature get progressively smaller
+//int creature_starve_interval=15000;//time in miliseconds, interval over which creature get progressively smaller
 
 
 void setup() {
@@ -30,9 +31,10 @@ void setup() {
   dataTables=new DataTables();//create tables first
   //let Datatablse class handle creation of new objects to track
 //  dataTables.updateCreatureTable(intial_creature_x ,intial_creature_y);  
-  cr=dataTables.spawnCreature();
+  //cr=dataTables.spawnCreature();
   spawnNumFood(foodnum);
-  spawnNumPoison(foodnum-2);  
+  spawnNumPoison(foodnum-2);  //2 less than foodnum
+  spawnNumCreature(creaturenum);
   start_time=millis();
   reset_interval_time=millis();
 
@@ -47,17 +49,21 @@ void draw() {
  // poison.show();
   fill(255,20,0);//colour of creature 
   //replace with update fution from datatables
-  if((millis()-reset_interval_time)<creature_starve_interval)//if its 
-  {
-      dataTables.move_creature(cr,false);//true or false reduce creatures size after a certain amount of time
-  }
-  else 
-  {
-      dataTables.move_creature(cr,true);
-      reset_interval_time=millis();
-  }
-   
-   println("reset_interval_time:",reset_interval_time);
+ for(int u=0;u<=dataTables.creatureCount-1;u++)
+ {    cr=dataTables.creature[u];
+      if((millis()-cr.reset_interval_time)<cr.starve_interval)//if its 
+      {
+          dataTables.move_creature(cr,false);//true or false reduce creatures size after a certain amount of time
+      }
+      else 
+      {
+          dataTables.move_creature(cr,true);
+          cr.reset_interval_time=millis();
+      }
+
+ }
+       
+   //println("reset_interval_time:",reset_interval_time);
 
   
 }
@@ -79,6 +85,17 @@ void spawnNumPoison(int pnum)
     dataTables.spawnPoison();
   }
 
+}
+
+
+void spawnNumCreature(int cnum)
+{
+   
+  for(int i=0;i<=cnum-1;i++)
+  {
+    dataTables.spawnCreature();
+  }
+  
 }
 
 void showFood()
@@ -109,3 +126,4 @@ void showPoison()
    }  
 
 }
+

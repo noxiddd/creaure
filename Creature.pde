@@ -12,6 +12,8 @@ class Creature {
 
   int creature_size=10;//size of creature
 
+  int starve_interval=5000;////time in miliseconds, interval over which creature get progressively smaller if it hasnt eaten
+  int reset_interval_time=0;//last time since creature hungered
 
    public Creature() {
 
