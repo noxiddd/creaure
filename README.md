@@ -7,7 +7,6 @@ Just a simple simulation of a creature eating food, supposed to make it somewhat
 
 
 
-creaure/creature_v1.4.PNG 
 
-![Creature_SIm](https://github.com/noxiddd/creaure/creature_v1.4.PNG)
+![Creature_SIm](https://github.com/noxiddd/creaure/blob/multiple_creatures/creature_v1.4.PNG)
 
